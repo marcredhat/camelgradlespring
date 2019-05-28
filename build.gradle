@@ -1,0 +1,54 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.0.M3'
+	id 'groovy'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+
+
+group = 'com.codergists.somescripts'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/snapshot' }
+	maven { url 'https://repo.spring.io/milestone' }
+        maven{
+		url "https://maven.repository.redhat.com/ga"
+	}
+}
+
+//taken from: https://maven.repository.redhat.com/ga/org/jboss/redhat-fuse/fuse-springboot-bom/
+dependencyManagement {
+    imports {
+       mavenBom 'org.jboss.redhat-fuse:fuse-springboot-bom:7.2.0.fuse-720020-redhat-00001'
+    }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.codehaus.groovy:groovy'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		exclude group: 'junit', module: 'junit'
+	}
+        implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.codehaus.groovy:groovy'
+	implementation 'javax.servlet:javax.servlet-api'
+	implementation 'org.apache.camel:camel-core'
+	implementation 'org.apache.camel:camel-servlet'
+	implementation 'org.apache.camel:camel-jackson'
+	implementation 'org.apache.camel:camel-spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}

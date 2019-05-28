@@ -1,0 +1,52 @@
+package com.codergists.somescripts
+
+import org.springframework.boot.SpringApplication
+import org.apache.camel.builder.RouteBuilder
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.apache.camel.component.servlet.CamelHttpTransportServlet
+import org.springframework.boot.web.servlet.ServletRegistrationBean
+import org.springframework.context.annotation.Bean
+import org.apache.camel.model.rest.RestBindingMode
+import org.apache.camel.LoggingLevel
+import org.apache.camel.Exchange
+import org.apache.camel.Processor
+
+@SpringBootApplication
+class SomescriptsApplication extends RouteBuilder { 
+
+	static void main(String[] args) {
+		SpringApplication.run(SomescriptsApplication, args)
+	}
+
+	@Bean
+	public ServletRegistrationBean camelServletRegistrationBean() {
+		ServletRegistrationBean registration = new ServletRegistrationBean(new CamelHttpTransportServlet(), "/camel/*");
+		registration.setName("CamelServlet");
+		return registration;
+	}
+
+	@Override
+    	public void configure() throws Exception {
+
+		restConfiguration()
+		.component("servlet")
+		.bindingMode(RestBindingMode.json);
+
+		rest().get("/hello")
+		.to("direct:hello");
+ 
+
+		from("direct:hello")
+		.log(LoggingLevel.INFO, "Hello World HTTP ENDPOINT")
+		.process(new Processor() {
+                	@Override
+                	void process(Exchange exchange) throws Exception {
+					def jsonMap = [hello:"world"]
+                    		exchange.in.body = jsonMap
+			}
+		})
+
+        from("timer:hello?period=5000").log('hello world timer fired ${exchangeProperty[CamelTimerCounter]}')
+    }
+
+}
