@@ -144,19 +144,25 @@ from cal.sap.com
 
 ==========================================
 My .bashrc is:
-[marc@rhel8ga libs]$ more /home/marc/.bashrc
 # .bashrc
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+        . /etc/bashrc
 fi
 
 # User specific environment
 PATH="$HOME/.local/bin:$HOME/bin:$PATH:/home/marc/gradle-5.4.1/bin"
 export PATH
+
+#export KARAF_BASE=/home/marc/fuse-karaf-7.3.0.fuse-730079-redhat-00001
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.212.b04-1.el8_0.x86_64/jre
-export CLASSPATH=/home/marc/sap:/home/marc/sap/groovy-2.5.7/lib
+export CLASSPATH=/home/marc/sap:/home/marc/wildfly-17.0.0.Beta1/modules/system/layers/fuse/org/jdom/jdom2/main/:/home/marc/sap/groovy-2.5.7/lib:/home/marc/sap/sapjco3.jar
+#export LB_LIBRARY_PATH=/home/marc/fuse-karaf-7.3.0.fuse-730079-redhat-00001/module-sap/lib
+export JBOSS_HOME=/home/marc/wildfly-17.0.0.Beta1
+
+ #Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
 
 # User specific aliases and functions
 
