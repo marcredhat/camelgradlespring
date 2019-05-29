@@ -54,8 +54,10 @@ class SomescriptsApplication extends RouteBuilder {
 		.process(new Processor() {
                 	@Override
                 	void process(Exchange exchange) throws Exception {
-					def jsonMap = [marchello:"world1"]
+		                def jsonMap = [marchello:"world1"]
                     		exchange.in.body = jsonMap
+                                println(context.getBean("helloWorldService").sayHello())
+                                println("Exchange body is:" +  exchange.in.body)
 			}
 		})
                 
