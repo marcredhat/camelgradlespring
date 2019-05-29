@@ -36,7 +36,8 @@ Running the app
 ===============
 git clone https://github.com/marcredhat/camelgradlespring.git
 cd camelgradlespring/
-cp /home/marc/gradlecamelsap/camelsapdemo/SAPConnectionInfo.jcoDestination .
+create the SAPConnectionInfo.jcoDestination file (example above)
+./gradlew bootRun
 
 
 Tests
