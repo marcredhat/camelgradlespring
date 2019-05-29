@@ -83,7 +83,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.codehaus.groovy:groovy'
 	implementation 'javax.servlet:javax.servlet-api'
-	implementation 'org.apache.camel:camel-core'
+	//implementation 'org.apache.camel:camel-core'
+        //from https://mvnrepository.com/artifact/org.apache.camel/camel-core/2.24.0
+        //'org.apache.camel', name: 'camel-core', version: '2.24.0
+        implementation 'org.apache.camel:camel-core:2.24.0'
 	implementation 'org.apache.camel:camel-servlet'
 	implementation 'org.apache.camel:camel-jackson'
 	implementation 'org.apache.camel:camel-spring-boot-starter'
