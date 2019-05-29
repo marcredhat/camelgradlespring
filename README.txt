@@ -10,8 +10,6 @@ jco.client.passwd<SAP password>
 jco.client.user=<SAP username>
 jco.client.sysnr=00
 jco.client.ashost=<IP address of SAP instance>
-
-
 #Pool properites from the JCo v3
 #Maximum number of active connections that
 #can be created for a destination simultaneously
@@ -26,6 +24,12 @@ jco.destination.expiration_check_period=60000
 #Max time in ms to wait for a connection, if the max allowed number
 #of connections is allocated by the application
 jco.destination.max_get_client_time=60000
+
+
+SAP connector jar files
+=======================
+In build.gradle, find "compile fileTree(dir: '/home/marc/sap', include: '*.jar')" and
+replace /home/marc/sap with the folder where you have the SAP connector files (https://support.sap.com/en/product/connectors/jco.html)
 
 
 Running the app

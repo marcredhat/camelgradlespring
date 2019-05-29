@@ -59,7 +59,7 @@ dependencyManagement {
 
 dependencies {
 	compile fileTree(dir: '/home/marc/sap', include: '*.jar')
-	runtime fileTree(dir: '/home/marc/sap', include: '*.jar')
+	//runtime fileTree(dir: '/home/marc/sap', include: '*.jar')
 	def withoutSAP = { exclude group: 'com.sap.conn.*', module: 'SAP' }
 	//compile fileTree(dir: '/home/marc/sap', include: ['*.jar'])
 	//taken from https://mvnrepository.com/artifact/org.fusesource/camel-sap-parent/7.3.0.fuse-730079-redhat-00001
