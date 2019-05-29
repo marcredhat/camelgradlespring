@@ -27,8 +27,8 @@ class Example1 {
 	
 	static void main(String[] args) {
 		rfcReadTable()
-		bapiGetFlightList()
-		materialReadPlants()
+		//bapiGetFlightList()
+		//materialReadPlants()
 	}
 	
 	
