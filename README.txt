@@ -118,16 +118,17 @@ Use Gradle to generate an uberjar
 =================================
 git clone https://github.com/marcredhat/camelgradlespring.git
 cd camelgradlespring/
-create the SAPConnectionInfo.jcoDestination file (example above)
-./gradlew bootRun 
+./gradlew bootJar 
+
 The uberjar is created under build/libs
+
 Copy the SAP Connector .jar and .so files to build/libs (where Gradle generated the uberjar):
-[marc@rhel8ga libs]$ pwd
-/home/marc/gradlecamelsap/camelsapdemo/build/libs
 
 Copy the jcoDestination file to build/libs
 
 The end results should look like:
+[marc@rhel8ga libs]$ pwd
+/home/marc/gradlecamelsap/camelsapdemo/build/libs
 [marc@rhel8ga libs]$ ls
 camelsapdemo-0.0.1-SNAPSHOT.jar  libsapjco3.so  SAPConnectionInfo.jcoDestination  sapidoc3.jar  sapjco3.jar
 
