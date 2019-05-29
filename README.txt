@@ -135,6 +135,13 @@ You can now run the uberjar:
 java  -jar camelsapdemo-0.0.1-SNAPSHOT.jar
 
 ==========================================
+SAP instances used for testing:
+SAP NetWeaver AS ABAP and SAP BW 7.5 SP01 on SAP HANA SP10 [Developer Edition] 
+from cal.sap.com
+
+
+
+==========================================
 My .bashrc is:
 [marc@rhel8ga libs]$ more /home/marc/.bashrc
 # .bashrc
