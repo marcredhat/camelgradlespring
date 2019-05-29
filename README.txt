@@ -37,5 +37,5 @@ cp /home/marc/gradlecamelsap/camelsapdemo/SAPConnectionInfo.jcoDestination .
 
 Tests
 =====
-curl http://localhost:8080/camel/SAPLegacygFlights
+curl http://localhost:8080/camel/SAPLegacyFlights
 curl http://localhost:8080/camel/test
