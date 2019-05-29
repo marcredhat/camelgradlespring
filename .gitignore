@@ -1,7 +1,7 @@
-/TEST.jcoDestination
+/*.jcoDestination
 /*.jar
 /*.class
-
+/*.trc
 HELP.md
 .gradle
 /build/
