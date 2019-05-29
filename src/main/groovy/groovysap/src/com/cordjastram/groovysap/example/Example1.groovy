@@ -33,7 +33,10 @@ class Example1 {
 	
 	
 	static void materialReadPlants() {
-		GContext context = new GContext("TEST")
+                //a file SAPConnectionInfo.jcoDestination needs to place in the root of the folder from which we are starting the app
+                
+		//https://support.sap.com/en/product/connectors/jco.html
+		GContext context = new GContext("SAPConnectionInfo")
 		
 		//GRfcFunction function = new GRfcFunction("MATERIAL_READ_PLANTS",context)
                 //GRfcFunction function = new GRfcFunction("SDOK_PROFILE_READ",context)
@@ -54,8 +57,10 @@ class Example1 {
 }
 	
 	static void bapiGetFlightList () {
-		
-		GContext context = new GContext("TEST")
+		//a file SAPConnectionInfo.jcoDestination needs to place in the root of the folder from which we are starting the app
+
+                //https://support.sap.com/en/product/connectors/jco.html
+		GContext context = new GContext("SAPConnectionInfo")
 
 		GRfcFunction function = new GRfcFunction("BAPI_SFLIGHT_GETLIST", context)
 		
@@ -80,8 +85,10 @@ class Example1 {
 	
 	
 	static void rfcReadTable() {
-		
-		GContext context = new GContext("TEST") 
+		//a file SAPConnectionInfo.jcoDestination needs to place in the root of the folder from which we are starting the app
+
+                //https://support.sap.com/en/product/connectors/jco.html
+		GContext context = new GContext("SAPConnectionInfo") 
 		
 		GRfcFunction function = new GRfcFunction("RFC_READ_TABLE", context)
 		

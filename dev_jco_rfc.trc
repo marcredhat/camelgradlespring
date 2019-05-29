@@ -23,3 +23,28 @@ COUNTER     2
 	error group: 102
 	key: RFC_ERROR_COMMUNICATION
 
+
+**** Error file opened at 20190529 050931 Eastern Daylight Time Rel. 3.0.19 (2018-12-03) [721.1120]
+Error:  >Wed May 29 05:09:31,846<    RfcException:
+	message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=TEST ASHOST=3.213.5.97 SYSNR=00 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       partner '3.213.5.97:3300' not reached
+TIME        Wed May 29 05:09:31 2019
+RELEASE     721
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -10
+MODULE      nibuf.cpp
+LINE        4658
+DETAIL      NiBufIConnect: connection pending after 60000ms
+SYSTEM CALL connect
+ERRNO       115
+ERRNO TEXT  Operation now in progress
+COUNTER     2
+
+	return code: RFC_FAILURE (1)
+	error group: 102
+	key: RFC_ERROR_COMMUNICATION
+

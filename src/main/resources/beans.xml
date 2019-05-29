@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/lang
         http://www.springframework.org/schema/lang/spring-lang-2.5.xsd">
 
-<lang:groovy id="helloWorldService" script-source="classpath:HelloWorldServiceImpl.groovy">
+<lang:groovy id="SAPLegacy" script-source="classpath:SAPLegacyImpl.groovy">
         <lang:property name="name" value="Marc" />
     </lang:groovy>
 

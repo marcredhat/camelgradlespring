@@ -37,26 +37,26 @@ class SomescriptsApplication extends RouteBuilder {
 	@Override
     	public void configure() throws Exception {
                  ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-                 System.out.println(context.getBean("helloWorldService").sayHello());
+                 System.out.println(context.getBean("SAPLegacy").getFlights());
 
 
 		restConfiguration()
 		.component("servlet")
 		.bindingMode(RestBindingMode.json);
 
-		rest().get("/hello")
-		.to("direct:hello");
+		rest().get("/SAPLegacyFlights")
+		.to("direct:SAPLegacyFlights");
  
 
-		from("direct:hello")
-		.log(LoggingLevel.INFO, "Hello World HTTP ENDPOINT")
-                 .log(LoggingLevel.INFO, context.getBean("helloWorldService").sayHello())
+		from("direct:SAPLegacyFlights")
+		//.log(LoggingLevel.INFO, "Hello World HTTP ENDPOINT")
+                 .log(LoggingLevel.INFO, context.getBean("SAPLegacy").getFlights())
 		.process(new Processor() {
                 	@Override
                 	void process(Exchange exchange) throws Exception {
 		                def jsonMap = [marchello:"world1"]
                     		exchange.in.body = jsonMap
-                                println(context.getBean("helloWorldService").sayHello())
+                                println(context.getBean("SAPLegacy").getFlights())
                                 println("Exchange body is:" +  exchange.in.body)
 			}
 		})
