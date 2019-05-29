@@ -1,0 +1,264 @@
+== Project goals
+
+“One click” build automation (Gradle) to *expose SAP legacy systems using REST API calls and Fuse/Camel routes*.
+
+Example: instead of connecting to SAP legacy systems to use the well-known SFLIGHT model
+(available as default sample content in ABAP systems), 
+you just curl localhost:8080/camel/SAPLegacyFlights
+
+*Video demo* at http://bit.ly/2WlJq3C
+
+
+== Use cases
+
+Exposing SAP legacy systems using REST APIs/ Fuse/ Camel routes enables use cases s.a.
+
+
+*Coordinate actions in remote SAP and non-SAP services in order to obtain a consistent outcome*
+
+Example: For any trip from A to B, a travel agency should buy tickets for all sub-routes (train or flight) that take the customer from A to B, or none of them. 
+
+See http://bit.ly/2MpvKQG
+
+
+
+*Full API lifecycle management, charge back/monetization, security for  APIs created via this project as well as for APIs from api.sap.com* 
+
+See videos at http://bit.ly/2L0omu7
+
+
+
+*Integration with hundreds of systems*
+
+See https://red.ht/2MlvbXR
+
+
+
+*Machine Learning use cases*
+where the customers want their pre-trained ML models to be closer to their apps/workloads (e.g. for security reasons, to avoid calls to external systems).
+
+Calling a pre-trained ML model can be a simple API call, from any customer app, Fuse etc
+
+See http://bit.ly/2Mpt1H2 and https://github.com/marcredhat/containerized_ml_models/blob/master/Dockerfile_ubi8_minimal
+ 
+
+
+== Main benefits
+Enable cloud-native developers with no ABAP experience to build applications and integrations using modern tools including Gradle, Groovy, Spring and Camel.
+ 
+Enables building from user-specified versions of Camel/Spring/SAP connectors etc, making it  easy to test/upgrade different combinations (thanks to Gradle).
+
+
+== SAP systems used for testing
+SAP NetWeaver AS ABAP and SAP BW 7.5 SP01 on SAP HANA SP10 [Developer Edition] from cal.sap.com
+
+
+
+== Basic installation instructions
+A file called *SAPConnectionInfo.jcoDestination* needs to be present at the root of the folder from which you are starting the app
+
+Example of SAPConnectionInfo.jcoDestination
+	jco.client.lang=en
+	
+	jco.client.client=001
+	
+	jco.client.passwd<SAP password>
+
+	jco.client.user=<SAP username>
+	
+	jco.client.sysnr=00
+	
+	jco.client.ashost=<IP address of SAP instance>
+	
+	#Pool properites from the JCo v3
+	#Maximum number of active connections that can be created for a destination simultaneously
+	jco.destination.peak_limit=10
+
+	#Maximum number of idle connections kept open by the destination.
+	#A value of 0 has the effect that there is no connection pooling.
+	jco.destination.pool_capacity=10
+
+	#Time in ms after that the connections hold by the destination can be closed
+	jco.destination.expiration_time=60000
+
+	#Period in ms after that the destination checks the released connections for expiration
+	jco.destination.expiration_check_period=60000
+	
+	#Max time in ms to wait for a connection, if the max allowed number of connections is allocated by the application
+	jco.destination.max_get_client_time=60000
+
+
+*Download the SAP connector files from https://support.sap.com/en/product/connectors/jco.html*
+
+Perform basic validation as follows:
+
+*Test SAP connector JDOC jar files*
+
+----
+*java -jar /home/marc/sap/sapjco3.jar -stdout | more*
+----
+
+*Expected result* should be similar to:
+
+
+|                                 SAP Java Connector                                 |
+|                Copyright (c) 2000-2018 SAP SE. All rights reserved.                |
+|                                Version Information                                 |
+Java Runtime:
+ Operating System:    Linux 4.18.0-80.el8.x86_64 for amd64
+ Java VM:             1.8.0_212 Oracle Corporation
+ Default charset:     UTF-8
+Versions:
+ JCo API:             3.0.19 (2018-12-03)
+ JCo middleware:      JavaRfc 2.2.23
+ JCo library:         721.1120
+Library Paths:
+ JCo archive:         /home/marc/sap/sapjco3.jar
+ JCo library:         /home/marc/sap/libsapjco3.so
+|                                      Manifest                                      |
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.6.4
+Implementation-Title: com.sap.conn.jco
+Implementation-Version: 20181209 2228 [3.0.19 (2018-12-03)]
+Specification-Vendor: SAP SE, Walldorf
+Specification-Title: SAP Java Connector v3
+Implementation-Vendor-Id: com.sap
+Created-By: 5.1.028 (SAP AG)
+Specification-Version: 3.0.19
+Implementation-Vendor: SAP SE, Walldorf
+Main-Class: com.sap.conn.jco.rt.About
+
+
+*Test SAP connector IDOC jar files*
+
+----
+java -jar /home/marc/sap/sapidoc3.jar -stdout | more
+----
+
+*Expected result* should be similar to:
+
+
+|                            SAP Java IDoc Class Library                             |
+|                Copyright (c) 2000-2018 SAP SE. All rights reserved.                |
+|                                Version Information                                 |
+Java Runtime:
+ Operating System:    Linux 4.18.0-80.el8.x86_64 for amd64
+ Java VM:             1.8.0_212 Oracle Corporation
+ Default charset:     UTF-8
+Versions:
+ IDoc API:            3.0.13 (2018-10-01)
+ JCo API:             3.0.19 (2018-12-03)
+Library Paths:
+ IDoc archive:        /home/marc/sap/sapidoc3.jar
+ JCo archive:         /home/marc/sap/sapjco3.jar
+|                                      Manifest                                      |
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.6.5
+Implementation-Version: 30.000.20181001214016.0000
+Changelist: 439196
+Perforce-Server: perforce3301.wdf.sap.corp:3301
+Implementation-Vendor-Id: sap.com
+Edition: JavaIDoc_30_REL
+Class-Path: sapjco3.jar
+Created-By: 8.1.021 25.51-b12 (SAP AG)
+Main-Class: com.sap.conn.idoc.jco.rt.About
+
+
+*Adapt build.gradle to your environment*
+
+In build.gradle:
+
+Find "compile fileTree(dir: '/home/marc/sap', include: '*.jar')" and
+
+Replace /home/marc/sap with the folder where you have the SAP connector files (https://support.sap.com/en/product/connectors/jco.html)
+
+
+== Basic usage instructions
+
+
+*Running the app*
+
+
+git clone https://github.com/marcredhat/camelgradlespring.git
+
+
+cd camelgradlespring/
+
+
+create the SAPConnectionInfo.jcoDestination file (example above)
+
+----
+./gradlew bootRun
+----
+
+*Tests*
+
+
+curl http://localhost:8080/camel/SAPLegacyFlights
+
+
+curl http://localhost:8080/camel/test
+
+
+*Use Gradle to generate an uberjar*
+
+
+git clone https://github.com/marcredhat/camelgradlespring.git
+
+
+cd camelgradlespring/
+
+----
+./gradlew bootJar
+----
+
+The uberjar is created under build/libs
+
+Copy the SAP Connector .jar and .so files to build/libs (where Gradle generated the uberjar):
+
+Copy the jcoDestination file to build/libs
+
+
+The end result should look like:
+
+*pwd*
+
+/home/marc/gradlecamelsap/camelsapdemo/build/libs
+
+*ls*
+
+camelsapdemo-0.0.1-SNAPSHOT.jar  
+
+libsapjco3.so  
+
+SAPConnectionInfo.jcoDestination  
+
+sapidoc3.jar  
+
+sapjco3.jar
+
+
+You can now run the uberjar:
+
+----
+java -jar camelsapdemo-0.0.1-SNAPSHOT.jar
+----
+
+== Copyright and licensing information
+
+https://github.com/marcredhat/camelgradlespring/blob/master/LICENSE
+
+
+== Author(s)
+
+Marc Chisinevski, mchisine@redhat.com
+
+
+== Thanks, acknowledgements, and credits
+Cord Jastram, https://github.com/cordjastram/groovysap
+
+
+== Basic contact and help information
+Marc Chisinevski, mchisine@redhat.com
+
+
