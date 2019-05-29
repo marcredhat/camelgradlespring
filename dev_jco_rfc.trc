@@ -1,0 +1,25 @@
+
+**** Error file opened at 20190528 212206 Eastern Daylight Time Rel. 3.0.19 (2018-12-03) [721.1120]
+Error:  >Tue May 28 21:22:06,373<    RfcException:
+	message: Connect to SAP gateway failed
+Connection parameters: TYPE=A DEST=TEST ASHOST=192.168.80.131 SYSNR=00 PCS=1
+
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       partner '192.168.80.131:3300' not reached
+TIME        Tue May 28 21:22:06 2019
+RELEASE     721
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -10
+MODULE      nibuf.cpp
+LINE        4658
+DETAIL      NiBufIConnect: connection pending after 60000ms
+SYSTEM CALL connect
+ERRNO       115
+ERRNO TEXT  Operation now in progress
+COUNTER     2
+
+	return code: RFC_FAILURE (1)
+	error group: 102
+	key: RFC_ERROR_COMMUNICATION
+

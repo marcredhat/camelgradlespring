@@ -1,3 +1,7 @@
+/TEST.jcoDestination
+/*.jar
+/*.class
+
 HELP.md
 .gradle
 /build/
