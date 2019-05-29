@@ -95,7 +95,7 @@ Perform basic validation as follows:
 *Test SAP connector JDOC jar files*
 
 ----
-*java -jar /home/marc/sap/sapjco3.jar -stdout | more*
+java -jar /home/marc/sap/sapjco3.jar -stdout | more
 ----
 
 *Expected result* should be similar to:
@@ -236,6 +236,10 @@ SAPConnectionInfo.jcoDestination
 sapidoc3.jar  
 
 sapjco3.jar
+
+
+Set LD_LIBRARY_PATH to the folder where you have the SAP Connector files
+(e.g. export LD_LIBRARY_PATH=/home/marc/sap in your .bashrc)
 
 
 You can now run the uberjar:

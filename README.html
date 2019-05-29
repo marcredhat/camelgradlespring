@@ -592,7 +592,7 @@ jco.destination.max_get_client_time=60000</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>*java -jar /home/marc/sap/sapjco3.jar -stdout | more*</pre>
+<pre>java -jar /home/marc/sap/sapjco3.jar -stdout | more</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -757,6 +757,10 @@ Main-Class: com.sap.conn.idoc.jco.rt.About</p>
 <p>sapjco3.jar</p>
 </div>
 <div class="paragraph">
+<p>Set LD_LIBRARY_PATH to the folder where you have the SAP Connector files
+(e.g. export LD_LIBRARY_PATH=/home/marc/sap in your .bashrc)</p>
+</div>
+<div class="paragraph">
 <p>You can now run the uberjar:</p>
 </div>
 <div class="listingblock">
@@ -801,7 +805,7 @@ Main-Class: com.sap.conn.idoc.jco.rt.About</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-05-29 18:34:04 -0400
+Last updated 2019-05-29 19:37:14 -0400
 </div>
 </div>
 </body>
