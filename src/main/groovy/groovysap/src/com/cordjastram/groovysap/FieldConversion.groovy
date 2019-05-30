@@ -42,7 +42,7 @@ class FieldConversionMap {
 	private Map<String, FieldConversion> map = new HashMap<String, FieldConversion>()
 	
 	public FieldConversionMap loadFromXml() {
-		def inp = new File("/home/marc/sap/conversion.xml")
+		def inp = new File("./conversion.xml")
 		//InputStream inp = getClass().getResourceAsStream("/home/marc/sap/conversion.xml")
                //InputStream inp = getClass().getResourceAsStream("conversion.xml")
 		new XmlSlurper().parse(inp).children().each {
