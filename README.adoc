@@ -2,9 +2,16 @@
 
 “One click” build automation (Gradle) to *expose SAP legacy systems using REST API calls and Fuse/Camel routes*.
 
-Example: instead of connecting to SAP legacy systems to use the well-known SFLIGHT model
-(available as default sample content in ABAP systems), 
-you just curl localhost:8080/camel/SAPLegacyFlights
+Example: instead of 
+connecting directly to SAP legacy systems and 
+using the well-known SFLIGHT model via ABAP, (available as default sample content in ABAP systems), 
+you just curl localhost:8080/camel/SAPLegacyFlights.
+
+You can easily add other REST endpoints and  more complex Camel routes that fit your Enterpise Integration requirements.
+
+Also, teams that create the Camel routes / Sagas can operate independently from teams working on the SAP backends.
+
+See more under "How to contribute".
 
 *Video demo* at http://bit.ly/2WlJq3C
 
@@ -247,6 +254,26 @@ You can now run the uberjar:
 ----
 java -jar camelsapdemo-0.0.1-SNAPSHOT.jar
 ----
+
+== How to contribute
+
+This project is using https://camel.apache.org/rest-dsl.html to build REST endpoints as consumers for Camel routes.
+
+See src/main/groovy/SomescriptsApplication.groovy to see how we create the /SAPLegacyFlights REST endpoint.
+
+You can easily use this as a bluprint to add complex Enterprise Integration Patterns / Sagas.  See http://bit.ly/2MpvKQG and https://red.ht/2MlvbXR. 
+
+In the same source file, note that the Camel route calls getBean("SAPLegacy").getFlights()) to get the information from the actual SAP backend system.
+
+You'll find beans.xml, SAPLegacy.groovy, SAPLegacyImpl.groovy unders src/main/resources.
+
+Finally, have a look at src/main/groovy/groovysap/src/com/cordjastram/groovysap/example/Example1.groovy and see how the rfcReadTable() uses GContext
+to connect to the SAP backend using the SAPConnectionInfo.jcoDestination file that we place in the root of the folder from which we are starting the app.
+
+*So, you can easily add other REST endpoints and  more complex Camel routes that fit your Enterpise Integration requirements. 
+Also, teams that create the Camel routes / Sagas can operate independently from teams working on the SAP backend
+(once interfaces are agreed upon, see src/main/resources).*
+
 
 == Copyright and licensing information
 
