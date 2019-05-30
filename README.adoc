@@ -255,6 +255,8 @@ You can now run the uberjar:
 java -jar camelsapdemo-0.0.1-SNAPSHOT.jar
 ----
 
+To containerize using Universal Base Image, see https://github.com/marcredhat/camelgradlespring/tree/master/containerize_ubi
+
 == How to contribute
 
 This project is using https://camel.apache.org/rest-dsl.html to build REST endpoints as consumers for Camel routes.
