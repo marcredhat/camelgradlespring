@@ -4,14 +4,14 @@
 
 Example: instead of 
 connecting directly to SAP legacy systems and 
-using the well-known SFLIGHT model via ABAP, (available as default sample content in ABAP systems), 
-you just curl localhost:8080/camel/SAPLegacyFlights.
+using the well-known *SFLIGHT* model via *ABAP*, (available as default sample content in ABAP systems), 
+you just `curl http://localhost:8080/camel/SAPLegacyFlights`
 
 You can easily add other REST endpoints and  more complex Camel routes that fit your Enterpise Integration requirements.
 
 Also, teams that create the Camel routes / Sagas can operate independently from teams working on the SAP backends.
 
-See more under "How to contribute".
+See more under link:#how-to-contribute["How to contribute"].
 
 *Video demo* at http://bit.ly/2WlJq3C
 
@@ -64,7 +64,8 @@ SAP NetWeaver AS ABAP and SAP BW 7.5 SP01 on SAP HANA SP10 [Developer Edition] f
 == Basic installation instructions
 A file called *SAPConnectionInfo.jcoDestination* needs to be present at the root of the folder from which you are starting the app
 
-Example of SAPConnectionInfo.jcoDestination
+Example of _SAPConnectionInfo.jcoDestination_
+
 	jco.client.lang=en
 	
 	jco.client.client=001
@@ -107,7 +108,7 @@ java -jar /home/marc/sap/sapjco3.jar -stdout | more
 
 *Expected result* should be similar to:
 
-
+----
 |                                 SAP Java Connector                                 |
 |                Copyright (c) 2000-2018 SAP SE. All rights reserved.                |
 |                                Version Information                                 |
@@ -134,7 +135,7 @@ Created-By: 5.1.028 (SAP AG)
 Specification-Version: 3.0.19
 Implementation-Vendor: SAP SE, Walldorf
 Main-Class: com.sap.conn.jco.rt.About
-
+----
 
 *Test SAP connector IDOC jar files*
 
@@ -144,7 +145,7 @@ java -jar /home/marc/sap/sapidoc3.jar -stdout | more
 
 *Expected result* should be similar to:
 
-
+----
 |                            SAP Java IDoc Class Library                             |
 |                Copyright (c) 2000-2018 SAP SE. All rights reserved.                |
 |                                Version Information                                 |
@@ -169,15 +170,15 @@ Edition: JavaIDoc_30_REL
 Class-Path: sapjco3.jar
 Created-By: 8.1.021 25.51-b12 (SAP AG)
 Main-Class: com.sap.conn.idoc.jco.rt.About
-
+----
 
 *Adapt build.gradle to your environment*
 
 In build.gradle:
 
-Find "compile fileTree(dir: '/home/marc/sap', include: '*.jar')" and
+Find `compile fileTree(dir: '/home/marc/sap', include: '*.jar')` and
 
-Replace /home/marc/sap with the folder where you have the SAP connector files (https://support.sap.com/en/product/connectors/jco.html)
+Replace `/home/marc/sap` with the folder where you have the SAP connector files (https://support.sap.com/en/product/connectors/jco.html)
 
 
 == Basic usage instructions
@@ -186,13 +187,13 @@ Replace /home/marc/sap with the folder where you have the SAP connector files (h
 *Running the app*
 
 
-git clone https://github.com/marcredhat/camelgradlespring.git
+    git clone https://github.com/marcredhat/camelgradlespring.git
 
 
-cd camelgradlespring/
+    cd camelgradlespring/
 
 
-create the SAPConnectionInfo.jcoDestination file (example above)
+create the _SAPConnectionInfo.jcoDestination_ file (example above)
 
 ----
 ./gradlew bootRun
@@ -200,56 +201,54 @@ create the SAPConnectionInfo.jcoDestination file (example above)
 
 *Tests*
 
-
-curl http://localhost:8080/camel/SAPLegacyFlights
-
-
-curl http://localhost:8080/camel/test
+    curl http://localhost:8080/camel/SAPLegacyFlights
 
 
-*Use Gradle to generate an uberjar*
+    curl http://localhost:8080/camel/test
 
 
-git clone https://github.com/marcredhat/camelgradlespring.git
+*Use Gradle to generate an _uberjar_*
 
 
-cd camelgradlespring/
+    git clone https://github.com/marcredhat/camelgradlespring.git
 
-----
-./gradlew bootJar
-----
 
-The uberjar is created under build/libs
+    cd camelgradlespring/
 
-Copy the SAP Connector .jar and .so files to build/libs (where Gradle generated the uberjar):
 
-Copy the jcoDestination file to build/libs
+    ./gradlew bootJar
+
+The _uberjar_ is created under `build/libs`
+
+Copy the SAP Connector _.jar_ and _.so_ files to `build/libs` (where Gradle generated the _uberjar_):
+
+Copy the jcoDestination file to `build/libs`
 
 
 The end result should look like:
 
 *pwd*
 
-/home/marc/gradlecamelsap/camelsapdemo/build/libs
+    /home/marc/gradlecamelsap/camelsapdemo/build/libs
 
-*ls*
+*ls -A1*
 
-camelsapdemo-0.0.1-SNAPSHOT.jar  
+    camelsapdemo-0.0.1-SNAPSHOT.jar
 
-libsapjco3.so  
+    libsapjco3.so
 
-SAPConnectionInfo.jcoDestination  
+    SAPConnectionInfo.jcoDestination
 
-sapidoc3.jar  
+    sapidoc3.jar
 
-sapjco3.jar
-
-
-Set LD_LIBRARY_PATH to the folder where you have the SAP Connector files
-(e.g. export LD_LIBRARY_PATH=/home/marc/sap in your .bashrc)
+    sapjco3.jar
 
 
-You can now run the uberjar:
+Set `LD_LIBRARY_PATH` to the folder where you have the SAP Connector files
+(e.g. `export LD_LIBRARY_PATH=/home/marc/sap` in your `~/.bashrc`)
+
+
+You can now run the _uberjar_:
 
 ----
 java -jar camelsapdemo-0.0.1-SNAPSHOT.jar
@@ -261,20 +260,20 @@ To containerize using Universal Base Image, see https://github.com/marcredhat/ca
 
 This project is using https://camel.apache.org/rest-dsl.html to build REST endpoints as consumers for Camel routes.
 
-See src/main/groovy/SomescriptsApplication.groovy to see how we create the /SAPLegacyFlights REST endpoint.
+See link:src/main/groovy/SomescriptsApplication.groovy[] to see how we create the _/SAPLegacyFlights_ REST endpoint.
 
 You can easily use this as a bluprint to add complex Enterprise Integration Patterns / Sagas.  See http://bit.ly/2MpvKQG and https://red.ht/2MlvbXR. 
 
-In the same source file, note that the Camel route calls getBean("SAPLegacy").getFlights()) to get the information from the actual SAP backend system.
+In the same source file, note that the Camel route calls _getBean("SAPLegacy").getFlights()_ to get the information from the actual SAP backend system.
 
-You'll find beans.xml, SAPLegacy.groovy, SAPLegacyImpl.groovy unders src/main/resources.
+You'll find link:src/main/resources/beans.xml[beans.xml], link:src/main/resources/SAPLegacy.groovy[SAPLegacy.groovy], link:src/main/resources/SAPLegacyImpl.groovy[SAPLegacyImpl.groovy] under link:src/main/resources[].
 
-Finally, have a look at src/main/groovy/groovysap/src/com/cordjastram/groovysap/example/Example1.groovy and see how the rfcReadTable() uses GContext
-to connect to the SAP backend using the SAPConnectionInfo.jcoDestination file that we place in the root of the folder from which we are starting the app.
+Finally, have a look at link:src/main/groovy/groovysap/src/com/cordjastram/groovysap/example/Example1.groovy[] and see how the function _rfcReadTable()_ uses the class _GContext_
+to connect to the SAP backend using the _SAPConnectionInfo.jcoDestination_ file that we place in the root of the folder from which we are starting the app.
 
 *So, you can easily add other REST endpoints and  more complex Camel routes that fit your Enterpise Integration requirements. 
 Also, teams that create the Camel routes / Sagas can operate independently from teams working on the SAP backend
-(once interfaces are agreed upon, see src/main/resources).*
+(once interfaces are agreed upon, see link:src/main/resources[]).*
 
 
 == Copyright and licensing information
