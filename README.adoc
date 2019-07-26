@@ -1,9 +1,9 @@
 == Project goals
 
-“One click” build automation (Gradle) to *expose SAP legacy systems using REST API calls and Fuse/Camel routes*.
+“One click” build automation (Gradle) to *expose SAP existing systems using REST API calls and Fuse/Camel routes*.
 
 Example: instead of 
-connecting directly to SAP legacy systems and 
+connecting directly to SAP existing systems and 
 using the well-known *SFLIGHT* model via *ABAP*, (available as default sample content in ABAP systems), 
 you just `curl http://localhost:8080/camel/SAPLegacyFlights`
 
@@ -18,7 +18,7 @@ See more under link:#how-to-contribute["How to contribute"].
 
 == Use cases
 
-Exposing SAP legacy systems using REST APIs/ Fuse/ Camel routes enables use cases s.a.
+Exposing SAP existing systems using REST APIs/ Fuse/ Camel routes enables use cases s.a.
 
 
 *Coordinate actions in remote SAP and non-SAP services in order to obtain a consistent outcome*
