@@ -52,7 +52,14 @@ pe "oc create -f ./staging-secret.yaml"
 
 pe "oc create -f ./generatesapfusepod.yaml"
 
+# This volumes needs to have the SAP jars and SAPConnectionInfo.jcoDestination
+# ls podmancamelsap/
+# camelsapdemo-0.0.1-SNAPSHOT.jar  conversion.xml  libsapjco3.so  SAPConnectionInfo.jcoDestination  sapidoc3.jar  sapjco3.jar
+
+# For example on how to test persistent storage, see https://github.com/marcredhat/crcdemos/blob/master/obsolete-crconrhel76.adoc
+
 pe "oc set  volume pod/camelsap --add --name=camelsap --claim-name=sapdata --type pvc --claim-size=1G --mount-path /home/marc/sap"
+
 
 p "Wait a few seconds..."
 
