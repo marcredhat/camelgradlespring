@@ -1,0 +1,98 @@
+//https://plugins.gradle.org/plugin/biz.aQute.bnd.builder
+/*Gradle Plugin for developing OSGi bundles with Bnd. Bnd is the premiere tool for creating OSGi bundles. This gradle plugin is from the team that develops Bnd and is used by the Bnd team to build Bnd itself. See https://github.com/bndtools/bnd/blob/master/biz.aQute.bnd.gradle/README.md for information on using in a Bnd Workspace and a typical Gradle build*/
+
+
+buildscript {
+  repositories {
+    mavenCentral()
+    //https://nuget.pkg.github.com/bndtools/bnd/issues/3174
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.2.0'
+  }
+}
+plugins {
+	id 'org.springframework.boot' version '2.2.0.M3'
+        id 'groovy'
+        //id "biz.aQute.bnd.builder" version "4.2.0"
+}
+
+//apply plugin: "biz.aQute.bnd.builder"
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+
+
+group = 'com.codergists.somescripts'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/snapshot' }
+	maven { url 'https://repo.spring.io/milestone' }
+        maven{
+		url "https://maven.repository.redhat.com/ga"
+	}
+        maven {url "https://plugins.gradle.org/m2/"} 
+        //maven {url 'https://mvnrepository.com/artifact/org.fusesource/camel-sap'}
+}
+
+configurations {
+  compile
+  //all*.exclude module : 'spring-boot-starter-logging'
+  //all*.exclude  module: 'ch.qos.logback'
+  //all*.exclude module: 'org.slf4j:slf4j-api'
+  //all*.exclude group: 'org.slf4j'
+}
+
+//taken from: https://maven.repository.redhat.com/ga/org/jboss/redhat-fuse/fuse-springboot-bom/
+dependencyManagement {
+    imports {
+       //mavenBom 'org.jboss.redhat-fuse:fuse-springboot-bom:7.2.0.fuse-720020-redhat-00001'
+         mavenBom 'org.jboss.redhat-fuse:fuse-springboot-bom:7.3.0.fuse-730058-redhat-00001'
+    }
+}
+
+dependencies {
+	compile fileTree(dir: '/workspace', include: '*.jar')
+	runtime fileTree(dir: '/workspace', include: '*.jar')
+	def withoutSAP = { exclude group: 'com.sap.conn.*', module: 'SAP' }
+	//compile fileTree(dir: '/workspace', include: ['*.jar'])
+	//taken from https://mvnrepository.com/artifact/org.fusesource/camel-sap-parent/7.3.0.fuse-730079-redhat-00001
+	//compile 'org.fusesource:camel-sap:7.3.0.fuse-730079-redhat-00001', withoutSAP
+        //compile 'org.fusesource:camel-sap:6.3.0.redhat-187', withoutSAP
+	//taken from 
+	compile 'org.apache.camel:camel-sap-netweaver:3.0.0-M2'
+        compile 'org.codehaus.groovy:groovy-xml:3.0.0-beta-1'
+	//compile gradleApi()
+        //compile  'org.codehaus.groovy:groovy:2.5.7'
+        //compile 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.2.0' 
+        //implementation 'org.fusesource:camel-sap'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.codehaus.groovy:groovy'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		exclude group: 'junit', module: 'junit'
+	}
+        implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.codehaus.groovy:groovy'
+	implementation 'javax.servlet:javax.servlet-api'
+	//implementation 'org.apache.camel:camel-core'
+        //from https://mvnrepository.com/artifact/org.apache.camel/camel-core/2.24.0
+        //'org.apache.camel', name: 'camel-core', version: '2.24.0
+        implementation 'org.apache.camel:camel-core:2.24.0'
+	implementation 'org.apache.camel:camel-servlet'
+	implementation 'org.apache.camel:camel-jackson'
+	implementation 'org.apache.camel:camel-spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}
