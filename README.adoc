@@ -62,6 +62,31 @@ SAP NetWeaver AS ABAP and SAP BW 7.5 SP01 on SAP HANA SP10 [Developer Edition] f
 
 
 == Basic installation instructions
+
+
+
+----
+I'm on RHEL 8 so I install Java as explained at https://developers.redhat.com/blog/2018/12/10/install-java-rhel8/:
+
+sudo yum -y install java-1.8.0-openjdk-devel
+sudo yum -y install java-11-openjdk-devel
+sudo alternatives --config java
+
+[demouser@rhel8 complete]$ sudo alternatives --config java
+
+There are 2 programs which provide 'java'.
+
+  Selection    Command
+*+ 1           java-1.8.0-openjdk.x86_64 (/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-2.el8_1.x86_64/jre/bin/java)
+   2           java-11-openjdk.x86_64 (/usr/lib/jvm/java-11-openjdk-11.0.5.10-2.el8_1.x86_64/bin/java)
+----
+
+
+----
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.232.b09-2.el8_1.x86_64
+----
+
+
 A file called *SAPConnectionInfo.jcoDestination* needs to be present at the root of the folder from which you are starting the app
 
 Example of _SAPConnectionInfo.jcoDestination_
